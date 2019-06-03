@@ -19,8 +19,8 @@ Voir aussi https://kotlinlang.org/docs/tutorials/native/mpp-ios-android.html pou
 ![alt text](https://image.noelshack.com/fichiers/2019/23/1/1559551335-cleanocto.png)
 
 androidApp : Projet android
-iosApp : Projet ios
-SharedCode : Dossier contenant la partie mutualisée
+<br/>iosApp : Projet ios
+<br/>SharedCode : Dossier contenant la partie mutualisée
 - core/src/androidMain : code spécifique à android
 - core/src/iosMain : code spécifique à ios
 - core/src/commonMain : code mutualisé en kotlin utilisé par android et ios
