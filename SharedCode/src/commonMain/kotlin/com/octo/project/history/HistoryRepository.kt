@@ -1,11 +1,11 @@
-package com.octo.project.app
+package com.octo.project.history
 
 import com.octo.project.History
 import com.octo.project.HistoryQueries
 import com.octo.project.SqlDelightDatabase
 import com.octo.project.multi.sqlDriver
 
-class LocalRepository {
+class HistoryRepository {
 
     /**
      * Gets history queries

@@ -14,7 +14,7 @@ class HistoryInteractorTest {
         // Given
         val presenter = mockk<HistoryPresenter>(relaxed = true)
         val repository = mockk<HistoryRepository> (relaxed = true)
-        val interactor = HistoryInteractor(presenter, repository, repository2)
+        val interactor = HistoryInteractor(presenter, repository)
 
         // When
         runBlockingTest { interactor.loadHistory() }

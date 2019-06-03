@@ -1,6 +1,7 @@
 package com.octo.project.converter
 
 import com.octo.project.app.Rates
+import com.octo.project.history.HistoryRepository
 import com.octo.project.multi.runBlockingTest
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -14,8 +15,9 @@ class ConverterInteractorTest {
     fun `ConverterInteractor should presentAppend`() {
         // Given
         val presenter = mockk<ConverterPresenter>(relaxed = true)
-        val repository = mockk<ConverterRepository> (relaxed = true)
-        val interactor = ConverterInteractor(presenter, repository, repository2)
+        val converterRepository = mockk<ConverterRepository> (relaxed = true)
+        val historyRepository = mockk<HistoryRepository> (relaxed = true)
+        val interactor = ConverterInteractor(presenter, converterRepository, historyRepository)
 
         // When
         runBlockingTest { interactor.append("1", "1") }
@@ -29,10 +31,11 @@ class ConverterInteractorTest {
         // Give
         val presenter = mockk<ConverterPresenterImpl>(relaxed = true)
         val expected = mockk<Rates>(relaxed = true)
-        val repository = mockk<ConverterRepositoryImpl> {
+        val historyRepository = mockk<HistoryRepository> (relaxed = true)
+        val converterRepository = mockk<ConverterRepositoryImpl> {
             coEvery { convert("EUR") } coAnswers { Response.Result(expected) }
         }
-        val interactor = ConverterInteractor(presenter, repository, repository2)
+        val interactor = ConverterInteractor(presenter, converterRepository, historyRepository)
 
         // When
         runBlockingTest { interactor.convert("EUR", "USD", "1200") }
@@ -45,8 +48,9 @@ class ConverterInteractorTest {
     fun `ConverterInteractor should presentReset`() {
         // Give
         val presenter = mockk<ConverterPresenterImpl>(relaxed = true)
-        val repository = mockk<ConverterRepositoryImpl> (relaxed = true)
-        val interactor = ConverterInteractor(presenter, repository, repository2)
+        val converterRepository = mockk<ConverterRepositoryImpl> (relaxed = true)
+        val historyRepository = mockk<HistoryRepository> (relaxed = true)
+        val interactor = ConverterInteractor(presenter, converterRepository, historyRepository)
 
         // When
         runBlockingTest { interactor.reset() }
@@ -59,16 +63,17 @@ class ConverterInteractorTest {
     fun `ConverterInteractor should presentError`() {
         // Give
         val presenter = mockk<ConverterPresenterImpl>(relaxed = true)
-        val repository = mockk<ConverterRepositoryImpl> {
+        val converterRepository = mockk<ConverterRepositoryImpl> {
             coEvery { convert("EUR") } coAnswers { Response.Error }
         }
-        val interactor = ConverterInteractor(presenter, repository, repository2)
+        val historyRepository = mockk<HistoryRepository> (relaxed = true)
+        val interactor = ConverterInteractor(presenter, converterRepository, historyRepository)
 
         // When
         runBlockingTest { interactor.convert("EUR", "USD", "1200") }
 
         // Then
-        coVerify { repository.convert("EUR") }
+        coVerify { converterRepository.convert("EUR") }
         coVerify { presenter.presentError() }
     }
 }

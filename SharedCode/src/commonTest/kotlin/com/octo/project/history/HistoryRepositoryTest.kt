@@ -19,14 +19,14 @@ class ConverterRepositoryTest {
         val expected: MutableList<History> = arrayListOf()
 
         val repository = mockk<HistoryRepository> {
-            coEvery { loadHistory() } coAnswers { expected }
+            coEvery { getHistory() } coAnswers { expected }
         }
 
         // When
-        val result = runBlockingTest { repository.loadHistory() }
+        val result = runBlockingTest { repository.getHistory() }
 
         // Then
-        coVerify { repository.loadHistory() }
+        coVerify { repository.getHistory() }
         assertEquals(result, expected)
     }
 }

@@ -1,10 +1,8 @@
 package com.octo.project.history
 
-import com.octo.project.app.LocalRepository
-
 class HistoryInteractor(
     private val presenter: HistoryPresenter,
-    private val repository: LocalRepository
+    private val repository: HistoryRepository
 ) {
     fun loadHistory() {
         val result = repository.getHistory()

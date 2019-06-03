@@ -21,15 +21,15 @@ class ConverterRepositoryTest {
         val expectedRates = Rates("EU", rates, "2019-01-01")
         val expectedResult = Response.Result(expectedRates)
 
-        val repository = mockk<ConverterRepositoryImpl> {
+        val converterRepository = mockk<ConverterRepositoryImpl> {
            coEvery { convert("EUR") } coAnswers { expectedResult }
         }
 
         // When
-        val result = runBlockingTest { repository.convert("EUR") }
+        val result = runBlockingTest { converterRepository.convert("EUR") }
 
         // Then
-        coVerify { repository.convert("EUR") }
+        coVerify { converterRepository.convert("EUR") }
         assertEquals(result, expectedResult)
     }
 
@@ -39,15 +39,15 @@ class ConverterRepositoryTest {
         // Given
         val expected = Response.Error
 
-        val repository = mockk<ConverterRepository> {
+        val converterRepository = mockk<ConverterRepository> {
             coEvery { convert("EUR") } coAnswers { expected }
         }
 
         // When
-        val result = runBlockingTest { repository.convert("EUR") }
+        val result = runBlockingTest { converterRepository.convert("EUR") }
 
         // Then
-        coVerify { repository.convert("EUR") }
+        coVerify { converterRepository.convert("EUR") }
         assertEquals(result, expected)
     }
 }

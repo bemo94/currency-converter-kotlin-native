@@ -6,6 +6,7 @@ import com.octo.project.multi.execute
 
 class HistoryPresenterImpl(private val provider: DispatchProvider, private val display: HistoryDisplay): HistoryPresenter {
     override fun presentHistory(history: MutableList<History>?) {
-        execute({ display.displayHistory(history) }, provider.main)
+        val reversed = history?.asReversed()
+        execute({ display.displayHistory(reversed) }, provider.main)
     }
 }
