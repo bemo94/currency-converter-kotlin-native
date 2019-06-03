@@ -2,7 +2,7 @@ package com.octo.project.converter
 
 import com.octo.project.app.AppDI
 import com.octo.project.app.DispatchProvider
-import com.octo.project.app.LocalRepository
+import com.octo.project.history.HistoryRepository
 import org.kodein.di.Kodein
 import org.kodein.di.erased.bind
 import org.kodein.di.erased.instance
@@ -28,10 +28,10 @@ class MainDi {
             }
 
             bind<ConverterInteractor>("interactor") with provider {
-                val repository by kodein.instance<ConverterRepositoryImpl>("repository")
-                val repository2: LocalRepository by  AppDI.kodein.instance("repository")
+                val converterRepository by kodein.instance<ConverterRepositoryImpl>("repository")
+                val historyRepository: HistoryRepository by  AppDI.kodein.instance("repository")
                 val presenter by kodein.instance<ConverterPresenterImpl>("presenter")
-                ConverterInteractor(presenter, repository, repository2)
+                ConverterInteractor(presenter, converterRepository, historyRepository)
             }
 
             bind<ConverterController>("controller") with singleton {

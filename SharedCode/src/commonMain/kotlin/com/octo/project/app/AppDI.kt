@@ -1,5 +1,6 @@
 package com.octo.project.app
 
+import com.octo.project.history.HistoryRepository
 import com.octo.project.multi.setupDatabase
 import org.kodein.di.Kodein
 import org.kodein.di.erased.bind
@@ -14,9 +15,9 @@ class AppDI {
                 DispatchProvider()
             }
 
-            bind<LocalRepository>("repository") with singleton {
+            bind<HistoryRepository>("repository") with singleton {
                 setupDatabase()
-                LocalRepository()
+                HistoryRepository()
             }
         }
     }

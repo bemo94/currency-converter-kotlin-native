@@ -2,7 +2,6 @@ package com.octo.project.history
 
 import com.octo.project.app.AppDI
 import com.octo.project.app.DispatchProvider
-import com.octo.project.app.LocalRepository
 import org.kodein.di.Kodein
 import org.kodein.di.erased.bind
 import org.kodein.di.erased.instance
@@ -24,7 +23,7 @@ class HistoryDi {
             }
 
             bind<HistoryInteractor>("interactor") with provider {
-                val repository: LocalRepository by  AppDI.kodein.instance("repository")
+                val repository: HistoryRepository by  AppDI.kodein.instance("repository")
                 val presenter by kodein.instance<HistoryPresenterImpl>("presenter")
                 HistoryInteractor(presenter, repository)
             }
