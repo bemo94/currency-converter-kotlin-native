@@ -7,7 +7,7 @@ currency-converter est un projet expérimentant la mutualisation de code entre a
 
 IDE :
 <br/>Pour android utiliser la version 3.4 d'Android studio avec gradle-5.1.1
-<br/>Pour IOS utiliser dernière version d'xcode
+<br/>Pour IOS utiliser la dernière version d'xcode
 
 Préparation sous android studio :
 <br/>Dans le dossier SharedCode faire ../gradlew podspec
