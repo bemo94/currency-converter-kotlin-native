@@ -1,2 +1,2 @@
-include ':app', ':SharedCode'
+include ':androidApp', ':SharedCode'
 enableFeaturePreview('GRADLE_METADATA')
