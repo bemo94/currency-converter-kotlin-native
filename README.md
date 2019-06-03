@@ -24,6 +24,7 @@ androidApp : Projet android
 - core/src/androidMain : code spécifique à android
 - core/src/iosMain : code spécifique à ios
 - core/src/commonMain : code mutualisé en kotlin utilisé par android et ios
+- code/src/commonTest : testes de la partie commune
 
 ## Bibliotèques
 
