@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "55B5AB549165307802E0262C51902FAF"
+               BlueprintIdentifier = "7578477CA77D98D8282C395822C4A93C"
                BuildableName = "sqlite3.framework"
                BlueprintName = "sqlite3"
                ReferencedContainer = "container:Pods.xcodeproj">

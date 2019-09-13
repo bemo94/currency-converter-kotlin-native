@@ -15,11 +15,11 @@ sqldelight {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     testOptions.unitTests.includeAndroidResources = true
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
     }
@@ -51,7 +51,7 @@ kotlin {
             }
             // add this to get sqldelight works on ios
             compilations.each {
-                it.extraOpts("-linkerOpts", "-lsqlite3")
+                it.extraOpts("-linker-options", "-lsqlite3")
             }
         }
 

@@ -2,8 +2,8 @@ package com.octo.project.history
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.octo.project.History
 import com.octo.project.R
 import com.octo.project.converter.*
@@ -26,7 +26,7 @@ class HistoryActivity : AppCompatActivity(), HistoryDisplay {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        linearLayoutManager = LinearLayoutManager( this)
+        linearLayoutManager = LinearLayoutManager(this)
         historyView.layoutManager = linearLayoutManager
         di = HistoryDi()
         controller = di.getHistoryController(this)
