@@ -1,43 +1,8 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'kotlinx-serialization'
-apply plugin: 'com.android.library'
-apply plugin: "com.squareup.sqldelight"
 apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
 version = "1.0"
-
-sqldelight {
-    SqlDelightDatabase {
-        packageName = "com.octo.project"
-        sourceFolders = ["sqldelight"]
-        schemaOutputDirectory = file("build/dbs")
-    }
-}
-
-android {
-    compileSdkVersion 28
-    testOptions.unitTests.includeAndroidResources = true
-    defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        //This is for MultiplatformSettings
-        debug {
-            // MPP libraries don't currently get this resolution automatically
-            matchingFallbacks = ['release']
-        }
-
-    }
-}
 
 kotlin {
     targets {
@@ -49,14 +14,9 @@ kotlin {
                     embedBitcode "bitcode"
                 }
             }
-            // add this to get sqldelight works on ios
-            compilations.each {
-                it.extraOpts("-linkerOpts", "-lsqlite3")
-            }
         }
 
-        fromPreset(presets.android, 'android')
-
+        fromPreset(presets.jvm, 'jvm')
     }
 
     sourceSets {
@@ -84,7 +44,6 @@ kotlin {
             implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
             implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0'
             implementation("io.ktor:ktor-client-android:$ktor_version")
-            implementation "com.squareup.sqldelight:android-driver:1.1.2"
         }
 
         iosMain.dependencies {
@@ -92,7 +51,6 @@ kotlin {
             implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.11.0'
             implementation "io.ktor:ktor-client-ios:$ktor_version"
             implementation "io.ktor:ktor-client-core-native:$ktor_version"
-            implementation "com.squareup.sqldelight:ios-driver:1.1.2"
         }
 
     }
