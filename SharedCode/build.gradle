@@ -1,4 +1,4 @@
-apply plugin: 'kotlin-multiplatform'
+apply plugin: 'kotlin-native-platform'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'com.android.library'
 apply plugin: "com.squareup.sqldelight"
@@ -54,19 +54,18 @@ kotlin {
                 it.extraOpts("-linker-options", "-lsqlite3")
             }
         }
-
+        
         fromPreset(presets.android, 'android')
-
     }
 
     sourceSets {
         commonMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib-common'
             implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.2.1'
-            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0'
+            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.13.0'
             implementation("io.ktor:ktor-client-core:$ktor_version")
             implementation "io.ktor:ktor-client-json:$ktor_version"
-            implementation 'org.kodein.di:kodein-di-erased:6.2.0'
+            implementation 'org.kodein.di:kodein-di-erased:6.4.1'
         }
 
         commonTest.dependencies {
@@ -74,7 +73,7 @@ kotlin {
             implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
             implementation 'org.jetbrains.kotlin:kotlin-test-junit'
             implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
-            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0'
+            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.13.0'
             implementation 'io.mockk:mockk:1.9.3'
             api "io.ktor:ktor-client-mock:$ktor_version"
         }
@@ -82,14 +81,14 @@ kotlin {
         androidMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib'
             implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1'
-            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0'
+            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0'
             implementation("io.ktor:ktor-client-android:$ktor_version")
             implementation "com.squareup.sqldelight:android-driver:1.2.0"
         }
 
         iosMain.dependencies {
             implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.2.1'
-            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.11.0'
+            implementation 'org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.13.0'
             implementation "io.ktor:ktor-client-ios:$ktor_version"
             implementation "io.ktor:ktor-client-core-native:$ktor_version"
             implementation "com.squareup.sqldelight:ios-driver:1.2.0"
@@ -125,6 +124,15 @@ task packForXCode(type: Sync) {
             text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
             setExecutable(true)
         }
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 

@@ -1,18 +1,26 @@
 package com.octo.project.converter
 
-import com.octo.project.app.DispatchProvider
-import com.octo.project.multi.execute
+import com.octo.project.multi.CoroutineContextSwitcher
 
-class ConverterController(private val provider: DispatchProvider, private val interactor: ConverterInteractor) {
+class ConverterController(
+    private val threadManager: CoroutineContextSwitcher,
+    private val interactor: ConverterInteractor
+) {
     fun convert(base: String, to: String, value: String) {
-        execute({ interactor.convert(base, to, value) }, provider.background)
+        threadManager.onBackgroundThread {
+            interactor.convert(base, to, value)
+        }
     }
 
     fun reset() {
-        execute({ interactor.reset() }, provider.background)
+        threadManager.onBackgroundThread {
+            interactor.reset()
+        }
     }
 
     fun append(initial: String, value: String) {
-        execute({ interactor.append(initial, value) }, provider.background)
+        threadManager.onBackgroundThread {
+            interactor.append(initial, value)
+        }
     }
 }

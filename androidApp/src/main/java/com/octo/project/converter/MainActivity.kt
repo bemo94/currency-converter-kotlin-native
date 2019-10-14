@@ -1,61 +1,49 @@
 package com.octo.project.converter
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_main.*
-
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.octo.project.R
 import com.octo.project.history.HistoryActivity
-import javax.inject.Singleton
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), ConverterDisplay {
 
-    lateinit var controller: ConverterController
-    @Singleton lateinit var di: MainDi
-
-    override fun displayResult(base: String, to: String, value: String) {
-        val builder = AlertDialog.Builder(this@MainActivity)
-        builder.setTitle(getString(R.string.Result))
-        builder.setMessage(getString(R.string.result_message, base, value, to))
-        builder.setPositiveButton(getString(R.string.ok)){ _, _ -> }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+    private val mainDi: MainDi by lazy {
+        MainDi(this)
     }
-
-    override fun displayError() {
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
-    }
-
-    override fun displayAppend(value: String) {
-        result.text = value
-    }
-
-    override fun displayReset(value: String) {
-        result.text = value
+    private val controller: ConverterController by lazy {
+        mainDi.getController()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        di = MainDi()
-        controller = di.getMainController(this)
+        val tokens = arrayOf(
+            "USD",
+            "EUR",
+            "CHF",
+            "NZD"
+        )
 
-        val tokens = arrayOf("USD", "EUR", "CHF", "NZD") //charger les tokens depuis l'api mais en laisser quelques un par defaut
         val array = ArrayAdapter(this, android.R.layout.simple_spinner_item, tokens)
         array.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner1.adapter = array
         spinner2.adapter = array
 
         convert.setOnClickListener {
-            controller.convert(spinner1.selectedItem.toString(), spinner2.selectedItem.toString(), result.text.toString())
+            controller.convert(
+                spinner1.selectedItem.toString(),
+                spinner2.selectedItem.toString(),
+                result.text.toString()
+            )
         }
 
         history.setOnClickListener {
@@ -76,8 +64,30 @@ class MainActivity : AppCompatActivity(), ConverterDisplay {
 
     fun numberClick(view: View) {
         val button = view as Button
-        // get current value and selected button to append to new value
         controller.append(result.text.toString(), button.text.toString())
+    }
+
+    override fun displayResult(base: String, to: String, value: String) {
+        val builder = AlertDialog.Builder(this@MainActivity)
+        builder.setTitle(getString(R.string.Result))
+        builder.setMessage(getString(R.string.result_message, base, value, to))
+        builder.setPositiveButton(getString(R.string.ok)) { _, _ -> }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    override fun displayError() {
+        Toast.makeText(this@MainActivity, getString(R.string.error), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun displayAppend(value: String) {
+        result.text = value
+
+    }
+
+    override fun displayReset(value: String) {
+        result.text = value
+
     }
 }
 

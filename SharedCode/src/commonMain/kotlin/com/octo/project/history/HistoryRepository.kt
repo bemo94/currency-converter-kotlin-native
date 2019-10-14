@@ -24,7 +24,7 @@ class HistoryRepository {
     fun getHistory(): MutableList<History>? {
         val historyQueries = getHistoryQueries()
         historyQueries?.let {
-            return  it.selectAll().executeAsList().toMutableList()
+            return it.selectAll().executeAsList().toMutableList()
         }
         return arrayListOf()
     }
@@ -32,7 +32,13 @@ class HistoryRepository {
     /**
      * add rate to the database
      */
-    fun addRate(origin: String, originValue: String, destination: String, destinationValue: String, date: String) {
+    fun addRate(
+        origin: String,
+        originValue: String,
+        destination: String,
+        destinationValue: String,
+        date: String
+    ) {
         val historyQueries = getHistoryQueries()
         historyQueries?.insertRow(origin, originValue, destination, destinationValue, date)
     }

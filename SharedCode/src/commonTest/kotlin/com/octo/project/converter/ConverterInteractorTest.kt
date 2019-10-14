@@ -10,7 +10,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.test.Test
 
 @ExperimentalCoroutinesApi
-class ConverterInteractorTest {
+class
+ConverterInteractorTest {
     @Test
     fun `ConverterInteractor should presentAppend`() {
         // Given

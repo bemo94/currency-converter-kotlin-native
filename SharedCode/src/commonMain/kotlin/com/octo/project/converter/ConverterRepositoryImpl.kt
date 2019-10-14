@@ -24,11 +24,11 @@ class ConverterRepositoryImpl : ConverterRepository {
         method = HttpMethod.Get
         url(address.toString() + base)
     }.use { response ->
-        when(response.status.value) {
+        when (response.status.value) {
             SUCCESS -> {
                 val json = response.readText()
                 println(json)
-                val rates =  Json.parse(Rates.serializer(), json)
+                val rates = Json.parse(Rates.serializer(), json)
                 Response.Result(rates)
             }
             else -> Response.Error

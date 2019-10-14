@@ -1,6 +1,6 @@
 package com.octo.project.converter
 
-import com.octo.project.MockDispatcherProvider
+import com.octo.project.multi.CoroutineContextSwitcher
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,8 +12,8 @@ class ConverterControllerTest {
     fun `ConverterController should call convert`() {
         // Give
         val interactor = mockk<ConverterInteractor>(relaxed = true)
-        val provider = MockDispatcherProvider()
-        val controller = ConverterController(provider, interactor)
+        val threadManager = CoroutineContextSwitcher.newInstance()
+        val controller = ConverterController(threadManager, interactor)
 
         // When
         controller.convert("EUR", "USD", "1200")
@@ -26,8 +26,8 @@ class ConverterControllerTest {
     fun `ConverterController should call reset`() {
         // Give
         val interactor = mockk<ConverterInteractor>(relaxed = true)
-        val provider = MockDispatcherProvider()
-        val controller = ConverterController(provider, interactor)
+        val threadManager = CoroutineContextSwitcher.newInstance()
+        val controller = ConverterController(threadManager, interactor)
 
         // When
         controller.reset()
@@ -40,8 +40,8 @@ class ConverterControllerTest {
     fun `ConverterController should call append`() {
         // Give
         val interactor = mockk<ConverterInteractor>(relaxed = true)
-        val provider = MockDispatcherProvider()
-        val controller = ConverterController(provider, interactor)
+        val threadManager = CoroutineContextSwitcher.newInstance()
+        val controller = ConverterController(threadManager, interactor)
 
         // When
         controller.append("10", "1")

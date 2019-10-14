@@ -6,21 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.octo.project.History
 import com.octo.project.R
-import com.octo.project.converter.*
+import com.octo.project.converter.MainActivity
 import kotlinx.android.synthetic.main.activity_history.*
-import javax.inject.Singleton
 
 class HistoryActivity : AppCompatActivity(), HistoryDisplay {
 
-    @Singleton
-    lateinit var di: HistoryDi
-
-    override fun displayHistory(history: MutableList<History>?) {
-        historyView.adapter = history?.let { HistoryAdapter(it, this) }
+    private val historyDi: HistoryDi by lazy { HistoryDi(this) }
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private val controller: HistoryController by lazy {
+        historyDi.getHistoryController()
     }
 
-    private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var controller: HistoryController
+    override fun displayHistory(history: MutableList<History>?) {
+        historyView.adapter = history?.let { HistoryAdapter(it, this@HistoryActivity) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +27,6 @@ class HistoryActivity : AppCompatActivity(), HistoryDisplay {
 
         linearLayoutManager = LinearLayoutManager(this)
         historyView.layoutManager = linearLayoutManager
-        di = HistoryDi()
-        controller = di.getHistoryController(this)
 
         controller.loadHistory()
 

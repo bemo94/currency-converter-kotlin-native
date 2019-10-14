@@ -24,8 +24,8 @@ class HistoryViewController: UIViewController, HistoryDisplay {
     override func viewDidLoad() {
         super.viewDidLoad()
         HistoryTableView.dataSource = self
-        self.historyDi = HistoryDi.init()
-        controller = historyDi?.getHistoryController(displayer: self)
+        self.historyDi = HistoryDi.init(displayer: self)
+        controller = historyDi?.getHistoryController()
         controller?.loadHistory()
     }
     

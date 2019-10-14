@@ -1,7 +1,7 @@
 package com.octo.project.history
 
 import com.octo.project.History
-import com.octo.project.MockDispatcherProvider
+import com.octo.project.multi.CoroutineContextSwitcher
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,14 +14,15 @@ class HistoryPresenterTest {
         // Given
         val expected: MutableList<History> = arrayListOf()
         val display = mockk<HistoryDisplay>(relaxed = true)
-        val provider = MockDispatcherProvider()
-        val presenter = HistoryPresenterImpl(provider, display)
+        val threadManager = mockk<CoroutineContextSwitcher>(relaxed = true)
+
+        val presenter = HistoryPresenterImpl(threadManager, display)
 
         // When
 
         presenter.presentHistory(expected)
 
         // Then
-        verify { display.displayHistory(expected) }
+        threadManager.onMainThread { verify { display.displayHistory(expected) } }
     }
 }

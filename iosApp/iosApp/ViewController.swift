@@ -87,8 +87,8 @@ class ViewController: UIViewController, ConverterDisplay, UIPickerViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mainDi = MainDi.init()
-        controller = mainDi?.getMainController(displayer: self)
+        self.mainDi = MainDi.init(displayer: self)
+        controller = mainDi?.getController()
         
         pickerView.delegate = self
         origin.delegate = self

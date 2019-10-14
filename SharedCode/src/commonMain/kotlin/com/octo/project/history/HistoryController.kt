@@ -1,10 +1,12 @@
 package com.octo.project.history
 
-import com.octo.project.app.DispatchProvider
-import com.octo.project.multi.execute
+import com.octo.project.multi.CoroutineContextSwitcher
 
-class HistoryController (private val provider: DispatchProvider, private val interactor: HistoryInteractor) {
+class HistoryController(
+    private val threadManager: CoroutineContextSwitcher,
+    private val interactor: HistoryInteractor
+) {
     fun loadHistory() {
-        execute({ interactor.loadHistory() }, provider.background)
+        threadManager.onBackgroundThread { interactor.loadHistory() }
     }
 }
