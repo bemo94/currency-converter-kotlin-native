@@ -11,9 +11,9 @@ import SharedCode
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var txt: UILabel!
+    @IBOutlet weak var label: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        txt.text = Txt.init().getTxt()
+        label.text = DummyStringKt.getDummyString()
     }
 }

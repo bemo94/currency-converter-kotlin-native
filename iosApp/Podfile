@@ -4,5 +4,4 @@
 target 'iosApp' do
   use_frameworks!
   pod 'SharedCode', :path => '../SharedCode'
-  pod 'sqlite3'
 end
