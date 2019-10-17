@@ -1,7 +1,7 @@
 package com.octo.project.converter
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.octo.project.Displayer
 import com.octo.project.R
 
