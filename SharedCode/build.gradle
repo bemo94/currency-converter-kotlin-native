@@ -47,6 +47,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+            implementation 'org.kodein.di:kodein-di-erased:6.4.1'
         }
 
         commonTest.dependencies {
