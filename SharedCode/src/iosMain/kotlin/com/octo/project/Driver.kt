@@ -6,5 +6,5 @@ import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 actual var sqlDriver: SqlDriver? = null
 
 actual fun setupDatabase() {
-    sqlDriver = NativeSqliteDriver(SqlDelightDatabase.Schema, "history.db")
+    sqlDriver = NativeSqliteDriver(SqlDelightDatabase.Schema, "stringRepository.db")
 }

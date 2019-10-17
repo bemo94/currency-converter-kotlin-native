@@ -1,0 +1,12 @@
+CREATE TABLE stringRepository (
+  string TEXT NOT NULL
+);
+
+-- Further SQL statements are proceeded by an identifier.
+selectAll:
+SELECT *
+FROM stringRepository;
+
+insertRow:
+INSERT INTO stringRepository(string)
+VALUES (?);
