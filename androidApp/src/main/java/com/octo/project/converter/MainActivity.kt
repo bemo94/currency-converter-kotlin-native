@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         setupDatabase()
 
-        val database =  StringRepositoryImpl()
+        val database =  StringRepository()
         database.addString("string1")
         database.addString("string2")
         database.addString("string3")
