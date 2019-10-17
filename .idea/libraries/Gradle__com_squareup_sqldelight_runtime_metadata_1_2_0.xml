@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.squareup.sqldelight:runtime-metadata:1.2.0" type="kotlin.common">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.sqldelight/runtime-metadata/1.2.0/ae3f9a4f396ecd2812c23d92448f87444ab5166f/sqldelight-runtime-metadata-1.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.sqldelight/runtime-metadata/1.2.0/7f16d54364a913d754059dc4d5e5d91049f653c7/runtime-metadata-1.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

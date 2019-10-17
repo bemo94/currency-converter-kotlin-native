@@ -1,0 +1,25 @@
+PODS:
+  - SharedCode (1.0)
+  - sqlite3 (3.29.0):
+    - sqlite3/common (= 3.29.0)
+  - sqlite3/common (3.29.0)
+
+DEPENDENCIES:
+  - SharedCode (from `../SharedCode`)
+  - sqlite3
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - sqlite3
+
+EXTERNAL SOURCES:
+  SharedCode:
+    :path: "../SharedCode"
+
+SPEC CHECKSUMS:
+  SharedCode: 0ab873e38938ed42f10e8fbf44396778da9e57a2
+  sqlite3: 1b61edbb8cc8ee5f9150fc846bf32df6876577cd
+
+PODFILE CHECKSUM: 765d6fdefb05714079cd62242748813b9c278dbd
+
+COCOAPODS: 1.7.5
