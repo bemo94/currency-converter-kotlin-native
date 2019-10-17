@@ -1,8 +1,17 @@
 apply plugin: 'kotlin-multiplatform'
 apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
+apply plugin: "com.squareup.sqldelight"
 
 version = "1.0"
+
+sqldelight {
+    SqlDelightDatabase {
+        packageName = "com.octo.project"
+        sourceFolders = ["sqldelight"]
+        schemaOutputDirectory = file("build/dbs")
+    }
+}
 
 android {
     compileSdkVersion 29
@@ -39,7 +48,14 @@ kotlin {
                     embedBitcode "bitcode"
                 }
             }
+
+            // add this to get sqldelight works on ios
+            compilations.each {
+                it.extraOpts("-linker-options", "-lsqlite3")
+            }
         }
+
+
 
         fromPreset(presets.android, 'android')
     }
@@ -55,10 +71,11 @@ kotlin {
 
         androidMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib'
+            implementation "com.squareup.sqldelight:android-driver:1.2.0"
         }
 
         iosMain.dependencies {
-
+            implementation "com.squareup.sqldelight:ios-driver:1.2.0"
         }
 
     }
