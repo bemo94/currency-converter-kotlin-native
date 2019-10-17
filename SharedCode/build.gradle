@@ -47,7 +47,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib-common'
-            implementation 'org.kodein.di:kodein-di-erased:6.4.1'
+            implementation 'org.kodein.di:kodein-di-erased:6.3.0'
         }
 
         commonTest.dependencies {
@@ -68,6 +68,15 @@ kotlin {
         // Configure fields required by CocoaPods.
         summary = "Some description for a Kotlin/Native module"
         homepage = "Link to a Kotlin/Native module homepage"
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+
+        kotlinOptions {
+            jvmTarget = '1.8'
+        }
     }
 }
 
